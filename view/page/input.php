@@ -11,18 +11,20 @@ include("./header.php");
 
 include("./nav.php");
 
-
-    $cd_terminal=addslashes($_POST['cd_terminal']);
+if (!empty($cd_terminal)){
+    $nm_terminal=addslashes($_POST['nm_terminal']);
     //Cadastrar
         //Verifica se já não está cadastrado
-        if(!$Banco_Terminal->cadastrarMovimentacao($cd_terminal)){
+        if(!$Banco_Terminal->cadastrarMovimentacao($cd_terminal,$nm_terminal,$cd_entradaEsqDir,$nm_apelidoTerminal,$qt_capacidadeRodoviariaRec,$qt_capacidadeFerroviariaRec,$qt_capacidadeNavioRec,$cd_numeroTerminal,$qt_capacidadeRodoviariaExp, $qt_capacidadeFerroviariaExp,$qt_capacidadeNavioExp, $vl_armazem_nominal, $cd_categoria)){
             ?><br><br><br><br><br><br><h4 class="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse setor já está cadastrado!</h4><?php
         }else{
             ?><br><br><br><br><br><br><h4 class="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setor cadastrado com sucesso!</h4><?php
         }	
-    else{
+    }else{
         echo '<br><br><br><br><br><br><h4 class="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Preencha todos os campos!</h4>';
     }	
+
+
 
 ?>
 
@@ -33,51 +35,51 @@ include("./nav.php");
     <div class="row">
 
         <section class="col-md-12">
-        <form action="" method="POST" >  <br><br><br><br> <br><br>
+        <form action="input.php" method="POST" >  <br><br><br><br> <br><br>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Nome Terminal</label>
+                    <label for="validationCustom01">Nome Terminal</label>
                     <input type="text" class="form-control" name="nm_terminal" placeholder="Name">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Apelido</label>
+                    <label for="validationCustom01">Apelido</label>
                     <input type="text" class="form-control" name="nm_apelidoTerminal" placeholder="ESQ">
                 </div>
             </div>
             <div class="form-group col-md-6">
-                    <label for="inputEmail4">Capacidade Rodoviaria</label>
+                    <label for="validationCustom01">Capacidade Rodoviaria</label>
                     <input type="text" class="form-control" name="qt_capacidadeRodoviariaRec" placeholder="ESQ">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Capacidade Navio</label>
+                    <label for="validationCustom01">Capacidade Navio</label>
                     <input type="text" class="form-control" name="qt_capacidadeNavioRec" placeholder="ESQ">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Número Terminal</label>
+                    <label for="validationCustom01">Número Terminal</label>
                     <input type="text" class="form-control" name="cd_numeroTerminal" placeholder="ESQ">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Capacidade Rodoviaria Expedição</label>
+                    <label for="validationCustom01">Capacidade Rodoviaria Expedição</label>
                     <input type="text" class="form-control" name="qt_capacidadeRodoviariaExp" placeholder="ESQ">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Capacidade Navio Expedição</label>
+                    <label for="validationCustom01">Capacidade Navio Expedição</label>
                     <input type="text" class="form-control" name="qt_capacidadeNavioExp" placeholder="ESQ">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Armazem Nominal</label>
+                    <label for="validationCustom01">Armazem Nominal</label>
                     <input type="text" class="form-control" name="vl_armazem_nominal" placeholder="ESQ">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Capacidade Ferroviaria</label>
+                    <label for="validationCustom01">Capacidade Ferroviaria</label>
                     <input type="text" class="form-control" name="qt_capacidadeFerroviariaRec" placeholder="ESQ">
                 </div>
             <div class="form-group col-md-6">
-                    <label for="inputEmail4">Esquerda ou Direita</label>
+                    <label for="validationCustom01">Esquerda ou Direita</label>
                     <input type="text" class="form-control" name="cd_entradaEsqDir" placeholder="ESQ">
                 </div>
             
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary" value="enviar">Sign in</button>
         </form>
 
 

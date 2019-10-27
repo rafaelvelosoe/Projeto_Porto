@@ -23,18 +23,23 @@ $Banco_Terminal = new Banco_Terminal($databasedb, $hostnamedb, $usernamedb, $pas
 // // var_dump($select_ter);
 
 
-$select_rodo = $Banco_Terminal->select_rodo() ;
-$qt_realizadaVagao = count($select_rodo);
-  
-$select_ferro= $Banco_Terminal->select_ferro() ;
-$qt_realizadaVagaoferro = count($select_ferro);
 
-$select_navio= $Banco_Terminal->select_navio() ;
+
+
+
+
+$select_rodo = $Banco_Terminal->select_rodo();
+$qt_realizadaVagao = count($select_rodo);
+
+$select_ferro = $Banco_Terminal->select_ferro();
+$qt_realizadaVagaoferro = $select_ferro;
+
+$select_navio = $Banco_Terminal->select_navio();
 $qt_realizadaVagaonavio = count($select_navio);
 
-$media = $qt_realizadaVagao + $qt_realizadaVagaoferro + $qt_realizadaVagaonavio;
+// $media = $qt_realizadaVagao + $qt_realizadaVagaoferro + $qt_realizadaVagaonavio;
 
-$media =  $media / 3;
+// $media =  $media / 3;
 // var_dump($select_ter);
 ?>
 
@@ -132,11 +137,11 @@ $media =  $media / 3;
 				<!-- ----------------------------------------------------------------------- -->
 				<header>
 
-				&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
 					<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
 						&nbsp;<button type="button" class="btn btn-primary btn-lg">Líquido</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="view/page/granel.php"><button type="button" class="btn btn-primary btn-lg">Granel</button></a>
+						<a href="#"><button type="button" class="btn btn-primary btn-lg">Granel</button></a>
 
 					</div>
 					<br>
@@ -147,12 +152,11 @@ $media =  $media / 3;
 					<!-- Small boxes (Stat box) -->
 
 
-			<style>
-
-.nav-pills{
-	background:white;
-}
-</style>
+					<style>
+						.nav-pills {
+							background: white;
+						}
+					</style>
 
 					<div class="col-lg-12">
 						<ul class="nav nav-pills">
@@ -165,14 +169,17 @@ $media =  $media / 3;
 							<li class="nav-item">
 								<a class="nav-link" href="#terceiro">Terceiro Período</a>
 							</li>
-</ul>
-							<br>
-							<br>
+							<li class="nav-item">
+								<a class="nav-link" href="#terceiro">Quarto Período</a>
+							</li>
+						</ul>
+						<br>
+						<br>
 					</div>
 
 					<br><br><br><br>
 
-				
+
 
 
 
@@ -182,14 +189,99 @@ $media =  $media / 3;
 						<!-- small box -->
 						<div class="small-box bg-aqua">
 							<div class="inner">
-								<h3><?php  echo ($qt_realizadaVagao); ?></h3>
+								<h3><?php echo ($qt_realizadaVagao); ?></h3>
 
-								<p>Rodoviário</p>
+								<p>Rodoviário Caminhões</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-bag"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a class="small-box-footer" data-toggle="modal" data-target=".bd-example-modal-xl">Mais Informações<i class="fa fa-arrow-circle-right"></i></a>
+
+							<!-- Modal -->
+							<div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<br>
+								<br>
+								<div class="modal-dialog  modal-lg" role="document">
+									<div class="modal-content ">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<table class="table table-striped table-info	">
+												<thead class="thead-dark">
+													<tr>
+
+														<th scope="col" class="text-center" style="font-size:25px;">Descarga</th>
+														<th scope="col" class="text-center" style="font-size:25px;">Embarque</th>
+
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+
+													<td class="echo text-center">
+														<?php 
+														$select_rodoDir=$Banco_Terminal->select_rodoDir();
+														
+														if (count($select_rodoDir) > 0) {
+															for ($i = 0; $i < count($select_rodoDir); $i++) {
+																foreach ($select_rodoDir[$i] as $k => $v) {
+																	if ($k == "quantidade") {
+																		$quantidade = $v;
+																		
+																	}
+																}
+															} 
+															//Fim do FOREACH
+														}
+														echo $quantidade;
+														?>
+
+														</td>
+														<td class="echo text-center">
+															<?php
+															$dados=$Banco_Terminal->select_rodoEsq();
+														
+															if (count($dados) > 0) {
+																for ($i = 0; $i < count($dados); $i++) {
+																	foreach ($dados[$i] as $k => $v) {
+																		if ($k == "quantidade") {
+																			$quantidade = $v;
+																			
+																		}
+																	}
+																} 
+																//Fim do FOREACH
+															}
+															echo $quantidade;
+															?>
+
+														</td>
+
+
+													</tr>
+													<style>
+														.echo {
+															color: rgba("0,0,0,0.8");
+															font-size: 22px;
+															margin-top: 1px;
+														}
+													</style>
+
+
+												</tbody>
+											</table>
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- ./col -->
@@ -197,14 +289,147 @@ $media =  $media / 3;
 						<!-- small box -->
 						<div class="small-box bg-green">
 							<div class="inner">
-								<h3><?php  echo ($qt_realizadaVagaoferro); ?><sup style="font-size: 20px"></sup></h3>
 
-								<p>Ferroviario</p>
+
+
+
+
+
+
+
+
+								<h3><?php
+								
+								$dados=$Banco_Terminal->select_ferroDir();
+															
+															if (count($dados) > 0) {
+																for ($i = 0; $i < count($dados); $i++) {
+																	foreach ($dados[$i] as $k => $v) {
+																		if ($k == "quantidade") {
+																			$quantidadeferro = $v;
+																			
+																		}
+																	}
+																} 
+																//Fim do FOREACH
+															}
+															echo $quantidadeferro;
+								
+							 ?><sup style="font-size: 20px"></sup></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+								<p>Ferroviario Vagões</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-stats-bars"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+							<a class="small-box-footer" data-toggle="modal" data-target=".bd-example-modal-xl01">Mais Informações<i class="fa fa-arrow-circle-right"></i></a>
+
+							<!-- Modal -->
+							<div class="modal fade bd-example-modal-xl01" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<br>
+								<br>
+								<div class="modal-dialog  modal-lg" role="document">
+									<div class="modal-content ">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<table class="table table-striped table-info	">
+												<thead class="thead-dark">
+													<tr>
+
+														<th scope="col" class="text-center" style="font-size:25px;">Descarga</th>
+														<th scope="col" class="text-center" style="font-size:25px;">Embarque</th>
+
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+
+													<td class="echo text-center">
+															<?php
+															$dados=$Banco_Terminal->select_ferroDir();
+															
+															if (count($dados) > 0) {
+																for ($i = 0; $i < count($dados); $i++) {
+																	foreach ($dados[$i] as $k => $v) {
+																		if ($k == "quantidade") {
+																			$quantidade = $v;
+																			
+																		}
+																	}
+																} 
+																//Fim do FOREACH
+															}
+															echo $quantidade;
+															?>
+
+														</td>
+														<td class="echo text-center">
+															<?php
+															$dados=$Banco_Terminal->select_ferroEsq();
+														
+															if (count($dados) > 0) {
+																for ($i = 0; $i < count($dados); $i++) {
+																	foreach ($dados[$i] as $k => $v) {
+																		if ($k == "quantidade") {
+																			$quantidade = $v;
+																			
+																		}
+																	}
+																} 
+																//Fim do FOREACH
+															}
+															echo $quantidade;
+															?>
+
+														</td>
+
+
+													</tr>
+													<style>
+														.echo {
+															color: rgba("0,0,0,0.8");
+															font-size: 22px;
+															margin-top: 1px;
+														}
+													</style>
+
+
+												</tbody>
+											</table>
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<!-- ./col -->
@@ -212,14 +437,96 @@ $media =  $media / 3;
 						<!-- small box -->
 						<div class="small-box bg-yellow">
 							<div class="inner">
-							<h3><?php  echo ($qt_realizadaVagaonavio); ?></h3>
+								<h3>120.689</h3>
 
 								<p>Navios</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-person-add"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
+
+
+							<a class="small-box-footer" data-toggle="modal" data-target=".bd-example-modal-xl02">Mais Informações<i class="fa fa-arrow-circle-right"></i></a>
+
+							<!-- Modal -->
+							<div class="modal fade bd-example-modal-xl02	" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<br>
+								<br>
+								<div class="modal-dialog  modal-lg" role="document">
+									<div class="modal-content ">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<table class="table table-striped table-info	">
+												<thead class="thead-dark">
+													<tr>
+
+														<th scope="col" class="text-center" style="font-size:25px;">Descarga</th>
+														<th scope="col" class="text-center" style="font-size:25px;">Embarque</th>
+
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+													<td class="echo text-center">
+															<?php
+															$dados=$Banco_Terminal->select_navioDir();
+														
+															if (count($dados) > 0) {
+																for ($i = 0; $i < count($dados); $i++) {
+																	foreach ($dados[$i] as $k => $v) {
+																		if ($k == "quantidade") {
+																			$quantidade = $v;
+																			
+																		}
+																	}
+																} 
+																//Fim do FOREACH
+															}
+															echo $quantidade;
+															?>
+
+														</td>
+
+														<td class="echo text-center">
+															<?php
+															$dados=$Banco_Terminal-> select_navioEsq();
+														
+															if (count($dados) > 0) {
+																for ($i = 0; $i < count($dados); $i++) {
+																	foreach ($dados[$i] as $k => $v) {
+																		if ($k == "quantidade") {
+																			$quantidade = $v;
+																			
+																		}
+																	}
+																} 
+																//Fim do FOREACH
+															}
+															echo $quantidade;
+															?>
+
+														</td>
+
+
+
+													</tr>
+
+												</tbody>
+											</table>
+
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 					<!-- ./col -->
@@ -227,35 +534,35 @@ $media =  $media / 3;
 						<!-- small box -->
 						<div class="small-box bg-red">
 							<div class="inner">
-							<h3><?php  echo ($media); ?></h3>
+								<h3>120.689</h3>
 
 								<p>Média</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-pie-graph"></i>
 							</div>
-							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="#" class="small-box-footer">Mais Informações <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<div class="col-md-6">
 
-					<div class="box box-primary">
-            <div class="box-header with-border">
-              <i class="fa fa-bar-chart-o"></i>
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<i class="fa fa-bar-chart-o"></i>
 
-              <h3 class="box-title">Terminal</h3>
+								<h3 class="box-title">Terminal</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div id="donut-chart" style="height: 300px;"></div>
-            </div>
-            <!-- /.box-body-->
-          </div>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							<div class="box-body">
+								<div id="donut-chart" style="height: 300px;"></div>
+							</div>
+							<!-- /.box-body-->
+						</div>
 					</div>
 
 					<div class="col-md-6">
@@ -327,7 +634,7 @@ $media =  $media / 3;
 				borderColor: '#f3f3f3',
 				tickColor: '#f3f3f3'
 			},
-			series: {
+			ferroviario: {
 				bars: {
 					show: true,
 					barWidth: 0.5,
@@ -409,30 +716,41 @@ $media =  $media / 3;
 
 
 
-			var donutData = [
-      { label: 'Series2', data: 30, color: '#3c8dbc' },
-      { label: 'Series3', data: 20, color: '#0073b7' },
-      { label: 'Series4', data: 50, color: '#00c0ef' }
-    ]
-    $.plot('#donut-chart', donutData, {
-      series: {
-        pie: {
-          show       : true,
-          radius     : 1,
-          innerRadius: 0.5,
-          label      : {
-            show     : true,
-            radius   : 2 / 3,
-            formatter: labelFormatter,
-            threshold: 0.1
-          }
+			var donutData = [{
+					label: 'Navio',
+					data: 30,
+					color: '#3c8dbc'
+				},
+				{
+					label: 'Ferroviario',
+					data: 20,
+					color: '#0073b7'
+				},
+				{
+					label: 'Rodoviario',
+					data: 50,
+					color: '#00c0ef'
+				}
+			]
+			$.plot('#donut-chart', donutData, {
+				series: {
+					pie: {
+						show: true,
+						radius: 1,
+						innerRadius: 0.5,
+						label: {
+							show: true,
+							radius: 2 / 3,
+							formatter: labelFormatter,
+							threshold: 0.1
+						}
 
-        }
-      },
-      legend: {
-        show: false
-      }
-    })
+					}
+				},
+				legend: {
+					show: false
+				}
+			})
 		})
 
 		/*
